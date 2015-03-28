@@ -1,3 +1,11 @@
+;convert decimal to binary
+(defun dec-bin (n)
+    (let ((bin nil)) (loop while (not (= n 0)) do
+        (setf bin (cons (mod n 2) bin))
+        (setf n (floor n 2)))
+        bin))
+
+; file reading
 (let ((in (open "/some/file/name.txt" :if-does-not-exist nil)))
   (when in
     (loop for line = (read-line in nil)
@@ -29,6 +37,14 @@
 ; read in vars without split-seq
 (defparameter *v* (loop for i from 1 to len collect (read)))
 
+;deep copy array
+(defun arr-cop (arr)
+    (setf len (length arr))
+    (setf arr-new (make-array len))
+    (loop for i from 0 to (- len 1) do (setf (elt arr-new i) (elt arr i)))
+    (return-from arr-cop arr-new))
+
+
 ; bubble sort
 
 (defun swap (a b)
@@ -54,4 +70,8 @@
             (progn (swap i (+ i 1)) (setf swapped 1))))
     (incf *passes*)
     (print *v*))
-;end bubble sort    
+;end bubble sort
+
+;python range with step through array
+(loop for x = 0 then (+ x step) while (<pred>) do
+    (print x))
